@@ -1,0 +1,81 @@
+# ============================
+#   Visual Studio
+# ============================
+
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+bin/intermediates
+Debug/
+Release/
+x64/
+x86/
+*.obj
+*.pdb
+*.idb
+*.ilk
+*.log
+
+# ============================
+#   Premake
+# ============================
+
+# Generated project files
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# Premake cache
+premake5.log
+
+# ============================
+#   SDL2
+# ============================
+
+*.dll
+*.lib
+*.exp
+
+# ============================
+#   OS / Editor junk
+# ============================
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+.DS_Store
+
+# ============================
+#   C/C++ build artifacts
+# ============================
+
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dylib
+
+# ============================
+#   Logs / Temp
+# ============================
+
+*.log
+*.tmp
+*.cache
+
+# ============================
+#   Backup files
+# ============================
+
+*~
+*.bak
+*.old
