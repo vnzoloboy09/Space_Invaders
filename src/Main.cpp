@@ -3,7 +3,7 @@
 int main(int argc, char* argv[])
 {
     Game game;
-	game.Run();
+	game.run();
 
 	return 0;
 }

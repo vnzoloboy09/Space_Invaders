@@ -2,19 +2,25 @@
 
 #include <SDL.h>
 
+#include "State/StateManager.h"
+
 class Game
 {
 public:
 	Game();
 	~Game();
 
-	void Run();
-	void Update(float dt);
-	void Draw();
+	void run();
 
 private:
-	bool isRunning;
-	SDL_Window* window;
-	SDL_Renderer* renderer;
+	bool m_isRunning;
+	SDL_Window* m_window;
+	SDL_Renderer* m_renderer;
+
+	StateManager m_stateManager;
+	
+	void handleEvent();
+	void update(float dt);
+	void render();
 };
 
