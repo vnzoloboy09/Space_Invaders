@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "Config.h"
 
+#include "State/MainMenuState.h"
+
 Game::Game()
 {
 	// init Window
@@ -26,6 +28,7 @@ Game::Game()
 	SDL_RenderSetLogicalSize(m_renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	m_isRunning = true;
+	m_stateManager.changeState<MainMenuState>(&m_stateManager);
 }
 
 Game::~Game()
@@ -57,20 +60,20 @@ void Game::handleEvent()
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == SDL_QUIT)
-		{
 			m_isRunning = false;
-		}
+
+		m_stateManager.handleEvents(event);
 	}
 }
 
 void Game::update(float dt)
 {
-	// Update game logic here
+	m_stateManager.update(dt);
 }
 
 void Game::render()
 {
 	SDL_RenderClear(m_renderer);
-	// Render game objects here
+	m_stateManager.render(m_renderer);
 	SDL_RenderPresent(m_renderer);
 }
