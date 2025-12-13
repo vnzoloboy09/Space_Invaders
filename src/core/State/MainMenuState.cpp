@@ -7,8 +7,8 @@
 MainMenuState::MainMenuState(StateManager* sm, TextureManager* texManager)
 	: State(sm, texManager)
 {
-	m_playButton = new Button(300, 200, 200, 80, "play_button");
-	m_exitButton = new Button(300, 300, 200, 80, "exit_button");
+	m_playButton = std::make_unique<Button>(300, 200, 200, 80, "play_button");
+	m_exitButton = std::make_unique<Button>(300, 300, 200, 80, "exit_button");
 }
 
 MainMenuState::~MainMenuState()
@@ -32,7 +32,7 @@ void MainMenuState::update(float dt)
 	m_exitButton->update(mx, my, mousePressed);
 
 	if (m_playButton->isClicked())
-		m_stateManager->changeState<PlayState>(m_stateManager, m_texManager);
+		m_stateManager->queueStateChange<PlayState>(m_stateManager, m_texManager);
 
 	if (m_exitButton->isClicked())
 	{

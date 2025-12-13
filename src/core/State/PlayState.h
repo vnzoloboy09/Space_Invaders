@@ -1,6 +1,10 @@
 #pragma once
 
+#include <memory>
+
 #include "State.h"
+
+class Button;
 
 class PlayState : public State {
 public:
@@ -10,5 +14,8 @@ public:
     void handleEvents(SDL_Event& e) override;
     void update(float dt) override;
     void render(Renderer* renderer) override;
+
+private:
+	std::unique_ptr<Button> m_backButton;
 };
 

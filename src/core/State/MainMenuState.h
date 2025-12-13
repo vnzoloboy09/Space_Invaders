@@ -15,6 +15,6 @@ public:
 	void render(Renderer* renderer) override;
 
 private:
-	Button* m_playButton;
-	Button* m_exitButton;
+	std::unique_ptr<Button> m_playButton;
+	std::unique_ptr<Button> m_exitButton;
 };

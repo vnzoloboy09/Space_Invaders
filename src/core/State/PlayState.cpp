@@ -1,32 +1,35 @@
 #include "PlayState.h"
 #include "MainMenuState.h"
 #include "StateManager.h"
-
+#include "../ui/Button.h"
 
 PlayState::PlayState(StateManager* sm, TextureManager* texManager)
     : State(sm, texManager) 
 {
+	m_backButton = std::make_unique<Button>(10, 10, 100, 40, "back_button");
 }
 
 PlayState::~PlayState() {}
 
 void PlayState::handleEvents(SDL_Event& e) 
 {
-	if (e.type == SDL_KEYDOWN)
-	{
-		if (e.key.keysym.sym == SDLK_KP_ENTER || e.key.keysym.sym == SDLK_RETURN)
-		{
-			m_stateManager->changeState<MainMenuState>(m_stateManager, m_texManager);
-		}
-	}
+
 }
 
 void PlayState::update(float dt) 
 {
+	int mx, my;
+	SDL_GetMouseState(&mx, &my);
 
+	bool mousePressed = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT);
+
+	m_backButton->update(mx, my, mousePressed);
+
+	if (m_backButton->isClicked())
+		m_stateManager->queueStateChange<MainMenuState>(m_stateManager, m_texManager);
 }
 
 void PlayState::render(Renderer* renderer) 
 {
-	SDL_SetRenderDrawColor(renderer->getSDLRenderer(), 0, 0, 255, 255);
+	m_backButton->render(renderer, m_texManager);
 }

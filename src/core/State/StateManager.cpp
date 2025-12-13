@@ -8,8 +8,14 @@ void StateManager::handleEvents(SDL_Event& e)
 
 void StateManager::update(float dt)
 {
-	if (m_currentState)
+	if(m_currentState)
 		m_currentState->update(dt);
+
+	if (m_shouldChangeState)
+	{
+		m_currentState = std::move(m_pendingState);
+		m_shouldChangeState = false;
+	}
 }
 
 void StateManager::render(Renderer* renderer)
