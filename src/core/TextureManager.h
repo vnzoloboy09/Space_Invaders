@@ -9,7 +9,7 @@
 class TextureManager
 {
 public:
-	TextureManager(Renderer& renderer);
+	TextureManager(Renderer* renderer);
 	~TextureManager();
 
 	bool loadTexture(const char* filePath, const char* id);
@@ -18,7 +18,7 @@ public:
 	SDL_Texture* getTexture(const char* id);
 
 private:
-	Renderer m_renderer;
+	Renderer* m_renderer;
 	std::unordered_map<std::string, SDL_Texture*> m_textureMap;
 };
 

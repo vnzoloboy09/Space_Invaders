@@ -14,10 +14,9 @@ public:
 
 	void handleEvents(SDL_Event& e);
 	void update(float dt);
-	void render(Renderer& renderer);
+	void render(Renderer* renderer);
 
 private:
 	std::unique_ptr<State> m_currentState;
-
 };
 

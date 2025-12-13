@@ -3,8 +3,8 @@
 #include "StateManager.h"
 
 
-PlayState::PlayState(StateManager* sm)
-    : State(sm) 
+PlayState::PlayState(StateManager* sm, TextureManager* texManager)
+    : State(sm, texManager) 
 {
 }
 
@@ -16,7 +16,7 @@ void PlayState::handleEvents(SDL_Event& e)
 	{
 		if (e.key.keysym.sym == SDLK_KP_ENTER || e.key.keysym.sym == SDLK_RETURN)
 		{
-			m_stateManager->changeState<MainMenuState>(m_stateManager);
+			m_stateManager->changeState<MainMenuState>(m_stateManager, m_texManager);
 		}
 	}
 }
@@ -26,7 +26,7 @@ void PlayState::update(float dt)
 
 }
 
-void PlayState::render(Renderer& renderer) 
+void PlayState::render(Renderer* renderer) 
 {
-    // Draw game objects
+	SDL_SetRenderDrawColor(renderer->getSDLRenderer(), 0, 0, 255, 255);
 }

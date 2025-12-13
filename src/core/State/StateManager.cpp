@@ -12,7 +12,7 @@ void StateManager::update(float dt)
 		m_currentState->update(dt);
 }
 
-void StateManager::render(Renderer& renderer)
+void StateManager::render(Renderer* renderer)
 {
 	if (m_currentState)
 		m_currentState->render(renderer);

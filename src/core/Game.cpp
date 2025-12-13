@@ -4,7 +4,7 @@
 #include "State/MainMenuState.h"
 
 Game::Game()
-	: m_window(nullptr), m_renderer(nullptr)
+	: m_window(nullptr), m_renderer(nullptr), m_texManager(nullptr)
 {
 	// init Window
 	if (!SDL_Init(SDL_INIT_EVERYTHING)) {
@@ -16,17 +16,19 @@ Game::Game()
 	if (m_window == NULL)
 		SDL_Quit();
 
-	// init Renderer
-	m_renderer = Renderer(m_window);
+	// init Renderer and TextureManager
+	m_renderer = new Renderer(m_window);
+	m_texManager = new TextureManager(m_renderer);
 
+	// set initial state
 	m_isRunning = true;
-	m_stateManager.changeState<MainMenuState>(&m_stateManager);
+	m_stateManager.changeState<MainMenuState>(&m_stateManager, m_texManager);
 }
 
 Game::~Game()
 {
 	SDL_DestroyWindow(m_window);
-	m_renderer.~Renderer();
+	m_renderer->~Renderer();
 	SDL_Quit();
 }
 
@@ -65,7 +67,7 @@ void Game::update(float dt)
 
 void Game::render()
 {
-	m_renderer.clear();
+	m_renderer->clear();
 	m_stateManager.render(m_renderer);
-	m_renderer.present();
+	m_renderer->present();
 }

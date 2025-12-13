@@ -3,6 +3,7 @@
 #include <SDL.h>
 
 #include "State/StateManager.h"
+#include "TextureManager.h"
 #include "Renderer.h"
 
 class Game
@@ -16,7 +17,8 @@ public:
 private:
 	bool m_isRunning;
 	SDL_Window* m_window;
-	Renderer m_renderer;
+	Renderer* m_renderer;
+	TextureManager* m_texManager;
 
 	StateManager m_stateManager;
 	

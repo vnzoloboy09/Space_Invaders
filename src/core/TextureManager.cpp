@@ -1,6 +1,6 @@
 #include "TextureManager.h"
 
-TextureManager::TextureManager(Renderer& renderer)
+TextureManager::TextureManager(Renderer* renderer)
 	: m_renderer(renderer)
 {
 }
@@ -13,14 +13,14 @@ TextureManager::~TextureManager()
 bool TextureManager::loadTexture(const char* filePath, const char* id)
 {
 	SDL_Surface* tempSurface = SDL_LoadBMP(filePath);
-	if(tempSurface == nullptr) 
+	if (tempSurface == nullptr) 
 	{
 		return false;
 	}
 
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer.getSDLRenderer(), tempSurface);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(m_renderer->getSDLRenderer(), tempSurface);
 	SDL_FreeSurface(tempSurface);
-	if(texture == nullptr) 
+	if (texture == nullptr) 
 	{
 		return false;
 	}
@@ -32,7 +32,7 @@ bool TextureManager::loadTexture(const char* filePath, const char* id)
 void TextureManager::clearTexture(const char* id)
 {
 	auto it = m_textureMap.find(id);
-	if(it != m_textureMap.end()) 
+	if (it != m_textureMap.end()) 
 	{
 		SDL_DestroyTexture(it->second);
 		m_textureMap.erase(it);
@@ -41,7 +41,7 @@ void TextureManager::clearTexture(const char* id)
 
 void TextureManager::clearAllTextures()
 {
-	for(auto& pair : m_textureMap) 
+	for (auto& pair : m_textureMap) 
 	{
 		SDL_DestroyTexture(pair.second);
 	}
@@ -51,7 +51,7 @@ void TextureManager::clearAllTextures()
 SDL_Texture* TextureManager::getTexture(const char* id)
 {
 	auto it = m_textureMap.find(id);
-	if(it != m_textureMap.end())
+	if (it != m_textureMap.end())
 	{
 		return it->second;
 	}
