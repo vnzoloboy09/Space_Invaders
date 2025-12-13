@@ -26,7 +26,7 @@ void PlayState::update(float dt)
 
 }
 
-void PlayState::render(SDL_Renderer* renderer) 
+void PlayState::render(Renderer& renderer) 
 {
     // Draw game objects
 }

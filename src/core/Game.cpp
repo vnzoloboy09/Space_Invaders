@@ -4,6 +4,7 @@
 #include "State/MainMenuState.h"
 
 Game::Game()
+	: m_window(nullptr), m_renderer(nullptr)
 {
 	// init Window
 	if (!SDL_Init(SDL_INIT_EVERYTHING)) {
@@ -16,16 +17,7 @@ Game::Game()
 		SDL_Quit();
 
 	// init Renderer
-	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED
-		| SDL_RENDERER_PRESENTVSYNC);
-
-	if (m_renderer == NULL)
-		SDL_Quit();
-
-	SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
-
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-	SDL_RenderSetLogicalSize(m_renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
+	m_renderer = Renderer(m_window);
 
 	m_isRunning = true;
 	m_stateManager.changeState<MainMenuState>(&m_stateManager);
@@ -34,7 +26,7 @@ Game::Game()
 Game::~Game()
 {
 	SDL_DestroyWindow(m_window);
-	SDL_DestroyRenderer(m_renderer);
+	m_renderer.~Renderer();
 	SDL_Quit();
 }
 
@@ -73,7 +65,7 @@ void Game::update(float dt)
 
 void Game::render()
 {
-	SDL_RenderClear(m_renderer);
+	m_renderer.clear();
 	m_stateManager.render(m_renderer);
-	SDL_RenderPresent(m_renderer);
+	m_renderer.present();
 }

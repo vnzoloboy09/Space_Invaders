@@ -2,6 +2,8 @@
 
 #include <SDL.h>
 
+#include "../Renderer.h"
+
 class StateManager;
 
 class State
@@ -12,7 +14,7 @@ public:
 
 	virtual void handleEvents(SDL_Event& e) = 0;
 	virtual void update(float dt) = 0;
-	virtual void render(SDL_Renderer* renderer) = 0;
+	virtual void render(Renderer& renderer) = 0;
 
 protected:
 	StateManager* m_stateManager;

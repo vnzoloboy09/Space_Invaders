@@ -9,5 +9,5 @@ public:
 	~MainMenuState() override;
 	void handleEvents(SDL_Event& e) override;
 	void update(float dt) override;
-	void render(SDL_Renderer* renderer) override;
+	void render(Renderer& renderer) override;
 };

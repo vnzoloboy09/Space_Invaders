@@ -29,7 +29,7 @@ void MainMenuState::update(float dt)
 
 }
 
-void MainMenuState::render(SDL_Renderer* renderer)
+void MainMenuState::render(Renderer& renderer)
 {
 
 }
