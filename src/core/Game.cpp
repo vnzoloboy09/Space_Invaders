@@ -45,6 +45,10 @@ void Game::run()
 		handleEvent();
 		update(dt);
 		render();
+
+		if (m_stateManager.shouldQuit()) {
+			m_isRunning = false;
+		}
     }
 }
 

@@ -18,12 +18,19 @@ public:
 		m_shouldChangeState = true;
 	}
 
-
 	void handleEvents(SDL_Event& e);
 	void update(float dt);
 	void render(Renderer* renderer);
 
+	void requestQuit() {
+		m_shouldQuit = true;
+	}
+
+	bool shouldQuit() const { return m_shouldQuit; }
+
 private:
+	bool m_shouldQuit = false;
+
 	std::unique_ptr<State> m_currentState;
 	std::unique_ptr<State> m_pendingState;
 	bool m_shouldChangeState = false;

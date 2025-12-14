@@ -13,7 +13,7 @@ MainMenuState::MainMenuState(StateManager* sm, TextureManager* texManager)
 	m_buttons.emplace_back(std::make_unique<Button>(300, 300, 200, 80, "setting_button",
 		[this]() { m_stateManager->queueStateChange<SettingMenuState>(m_stateManager, m_texManager); }));
 	m_buttons.emplace_back(std::make_unique<Button>(300, 400, 200, 80, "exit_button",
-		[this]() { m_stateManager->queueStateChange<PlayState>(m_stateManager, m_texManager); }));
+		[this]() { m_stateManager->requestQuit(); }));
 }
 
 MainMenuState::~MainMenuState()
