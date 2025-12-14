@@ -1,25 +1,31 @@
+#include <SDL.h>
+
 #include "Button.h"
 #include "../TextureManager.h"
 #include "../Renderer.h"
 
-Button::Button(int x, int y, int width, int height, const std::string& textureId)
-	: m_rect{ x, y, width, height }, m_textureId(textureId)
+Button::Button(int x, int y, int width, int height, const std::string& textureId, std::function<void()> onClick)
+	: m_rect{ x, y, width, height }, m_textureId(textureId), m_onClick(onClick)
 {
 }
 
 Button::~Button()
 {
+
 }
 
 void Button::update(int mouseX, int mouseY, bool isMousePressed)
 {
-	m_isHovered = (mouseX >= m_rect.x && mouseX <= m_rect.x + m_rect.w &&
-				   mouseY >= m_rect.y && mouseY <= m_rect.y + m_rect.h);
+	SDL_Point mousePoint{ mouseX, mouseY };
+	m_isHovered = SDL_PointInRect(&mousePoint, &m_rect);
 
-	if (m_isHovered && isMousePressed) 
+	if (m_isHovered && isMousePressed && !m_isClicked) 
 	{
 		m_isClicked = true;
-	} else {
+		if(m_onClick)
+			m_onClick();
+	} 
+	else if (!isMousePressed){
 		m_isClicked = false;
 	}
 }

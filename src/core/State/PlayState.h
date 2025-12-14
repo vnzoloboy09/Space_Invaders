@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 
 #include "State.h"
 
@@ -16,6 +17,6 @@ public:
     void render(Renderer* renderer) override;
 
 private:
-	std::unique_ptr<Button> m_backButton;
+    std::vector<std::unique_ptr<Button>> m_buttons;
 };
 

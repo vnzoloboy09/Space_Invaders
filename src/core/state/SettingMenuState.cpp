@@ -1,23 +1,25 @@
-#include "PlayState.h"
-#include "MainMenuState.h"
 #include "StateManager.h"
+#include "SettingMenuState.h"
+#include "MainMenuState.h"
+
 #include "../ui/Button.h"
 
-PlayState::PlayState(StateManager* sm, TextureManager* texManager)
-    : State(sm, texManager) 
+SettingMenuState::SettingMenuState(StateManager* sm, TextureManager* texManager)
+	: State(sm, texManager)
 {
-	m_buttons.emplace_back(std::make_unique<Button>(10, 10, 100, 40, "back_button",
+	m_buttons.emplace_back(std::make_unique<Button>(10, 10, 100, 40, "back_button", 
 		[this]() { m_stateManager->queueStateChange<MainMenuState>(m_stateManager, m_texManager); }));
 }
 
-PlayState::~PlayState() {}
-
-void PlayState::handleEvents(SDL_Event& e) 
+SettingMenuState::~SettingMenuState()
 {
-
 }
 
-void PlayState::update(float dt)
+void SettingMenuState::handleEvents(SDL_Event& e)
+{
+}
+
+void SettingMenuState::update(float dt)
 {
 	int mx, my;
 	SDL_GetMouseState(&mx, &my);
@@ -30,7 +32,7 @@ void PlayState::update(float dt)
 	}
 }
 
-void PlayState::render(Renderer* renderer)
+void SettingMenuState::render(Renderer* renderer)
 {
 	for (auto& button : m_buttons)
 	{

@@ -1,17 +1,17 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
 #include "State.h"
 
 class Button;
 
-class MainMenuState : public State
+class SettingMenuState : public State
 {
 public:
-	MainMenuState(StateManager* sm, TextureManager* texManager);
-	~MainMenuState() override;
-
+	SettingMenuState(StateManager* sm, TextureManager* texManager);
+	~SettingMenuState();
 	void handleEvents(SDL_Event& e) override;
 	void update(float dt) override;
 	void render(Renderer* renderer) override;
@@ -19,3 +19,4 @@ public:
 private:
 	std::vector<std::unique_ptr<Button>> m_buttons;
 };
+

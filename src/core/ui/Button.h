@@ -2,11 +2,13 @@
 
 #include <SDL.h>
 #include <string>
+#include <functional>
 
 class Button
 {
 public:
-	Button(int x, int y, int width, int height, const std::string& textureId);
+	Button(int x, int y, int width, int height, const std::string& textureId,
+		std::function<void()> onClick);
 	~Button();
 
 	void update(int mouseX, int mouseY, bool isMousePressed);
@@ -18,6 +20,7 @@ public:
 private:
 	SDL_Rect m_rect;
 	std::string m_textureId;
+	std::function<void()> m_onClick;
 
 	bool m_isHovered = false;
 	bool m_isClicked = false;
