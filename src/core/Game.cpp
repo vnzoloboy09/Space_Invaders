@@ -1,7 +1,10 @@
 #include "Game.h"
 #include "Config.h"
 
+#include "State/MainMenuState.h"
+
 Game::Game()
+	: m_window(nullptr), m_renderer(nullptr), m_texManager(nullptr)
 {
 	// init Window
 	if (!SDL_Init(SDL_INIT_EVERYTHING)) {
@@ -13,25 +16,19 @@ Game::Game()
 	if (m_window == NULL)
 		SDL_Quit();
 
-	// init Renderer
-	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED
-		| SDL_RENDERER_PRESENTVSYNC);
+	// init Renderer and TextureManager
+	m_renderer = new Renderer(m_window);
+	m_texManager = new TextureManager(m_renderer);
 
-	if (m_renderer == NULL)
-		SDL_Quit();
-
-	SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
-
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-	SDL_RenderSetLogicalSize(m_renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
-
+	// set initial state
 	m_isRunning = true;
+	m_stateManager.changeState<MainMenuState>(&m_stateManager, m_texManager);
 }
 
 Game::~Game()
 {
 	SDL_DestroyWindow(m_window);
-	SDL_DestroyRenderer(m_renderer);
+	m_renderer->~Renderer();
 	SDL_Quit();
 }
 
@@ -48,6 +45,10 @@ void Game::run()
 		handleEvent();
 		update(dt);
 		render();
+
+		if (m_stateManager.shouldQuit()) {
+			m_isRunning = false;
+		}
     }
 }
 
@@ -57,20 +58,20 @@ void Game::handleEvent()
 	while (SDL_PollEvent(&event))
 	{
 		if (event.type == SDL_QUIT)
-		{
 			m_isRunning = false;
-		}
+
+		m_stateManager.handleEvents(event);
 	}
 }
 
 void Game::update(float dt)
 {
-	// Update game logic here
+	m_stateManager.update(dt);
 }
 
 void Game::render()
 {
-	SDL_RenderClear(m_renderer);
-	// Render game objects here
-	SDL_RenderPresent(m_renderer);
+	m_renderer->clear();
+	m_stateManager.render(m_renderer);
+	m_renderer->present();
 }
