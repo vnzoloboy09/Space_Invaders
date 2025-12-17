@@ -6,8 +6,10 @@
 PlayState::PlayState(StateManager* sm, TextureManager* texManager)
     : State(sm, texManager) 
 {
-	m_buttons.emplace_back(std::make_unique<Button>(10, 10, 100, 40, "back_button",
-		[this]() { m_stateManager->queueStateChange<MainMenuState>(m_stateManager, m_texManager); }));
+	m_buttons.emplace_back(std::make_unique<Button>(
+		10, 10, 100, 40, "back_button",
+		[this]() { m_stateManager->queueStateChange<MainMenuState>(m_stateManager, m_texManager); }
+	));
 }
 
 PlayState::~PlayState() {}
