@@ -34,8 +34,8 @@ std::vector<std::unique_ptr<Button>> MainMenuState::createVerticleMenu(
 {
 	std::vector<std::unique_ptr<Button>> buttons;
 
-	int count = textureIDs.size();
-	int totalHeight = count * buttonH + (count - 1) * spacing;
+	size_t count = textureIDs.size();
+	size_t totalHeight = count * buttonH + (count - 1) * spacing;
 
 	int startY = windowH / 2 - totalHeight / 2;
 	int x = windowW / 2 - buttonW / 2;
