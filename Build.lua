@@ -17,6 +17,7 @@ project "Space_Invaders"
     }
 
     includedirs {
+        "src",
         "vendor/SDL2/include"
     }
 
