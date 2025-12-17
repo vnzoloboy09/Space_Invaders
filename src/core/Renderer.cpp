@@ -8,7 +8,6 @@ Renderer::Renderer(SDL_Window* window)
 		SDL_Quit();
 	SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
-	SDL_RenderSetLogicalSize(m_renderer, 800, 600);
 }
 
 Renderer::~Renderer()
